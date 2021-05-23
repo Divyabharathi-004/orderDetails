@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+
+
+	<http:listener-config name="employee_complaintsaccessapi-httpListenerConfig">
+        <http:listener-connection host="${http.host}" port="${http.port}" />
+    </http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="d3f75a2a-a232-419f-a6aa-e4dd0ddedfee" file="emp-complaints-DEV.yaml" />
+	<configuration doc:name="Configuration" doc:id="ec8d59cd-6900-4411-bf9f-a8cc77249b04" defaultErrorHandler-ref="globalError_Handler" />
+	<error-handler name="globalError_Handler" doc:id="a3fea9cd-ab3d-4dc9-9d82-c103bee27168" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="291b4ef4-8610-471e-8b9d-34531738f843" type="HTTP:BAD_GATEWAY">
+			<set-payload value='#["Bad Gateway error occurred"]' doc:name="Set Payload" doc:id="894821a5-6641-46ba-aca1-c882c294a0b7" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="5b78aabf-7789-41b0-8474-7fc8cda401bd" type="HTTP:BAD_REQUEST">
+			<set-payload value='#["HTTP Bad Request"]' doc:name="Set Payload" doc:id="302825a2-3a69-4cf2-8665-584d82f0c272" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="193f06a1-dcf6-4dd4-84c9-9d64a4cffcb6" type="HTTP:CLIENT_SECURITY">
+			<set-payload value='#["You are not authorized to send request"]' doc:name="Set Payload" doc:id="86084f76-d3b2-46f7-a481-ff2f4490d722" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="26134ea8-6bda-41ed-8114-70e92b1a3864" type="ANY">
+			<set-payload value='#["Some error occurred. Details: " ++ error.description]' doc:name="Set Payload" doc:id="d9c3b5dd-e519-4050-a031-fa552ed57349" />
+		</on-error-propagate>
+	</error-handler>
+	
+	
+</mule>

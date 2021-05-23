@@ -1,0 +1,31 @@
+http:
+  host: "localhost"
+  port: "8081"
+  
+Connector:
+  c1:
+    host: "grp1-complaint.us-e2.cloudhub.io"
+    port: "80"
+    protocol: "HTTP"
+    basePath: "/"
+    
+  c2:
+    host: "grp1-customer.us-e2.cloudhub.io"
+    port: "80"
+    protocol: "HTTP"
+    basePath: "/"
+  c3:
+    host: "grp1-order.us-e2.cloudhub.io"
+    port: "80"
+    protocol: "HTTP"
+    basePath: "/"
+  c4:
+    host: "grp1-orderdetails.us-e2.cloudhub.io"
+    port: "80"
+    protocol: "HTTP"
+    basePath: "/"
+  c5:
+    host: "grp1-product.us-e2.cloudhub.io"
+    port: "80"
+    protocol: "HTTP"
+    basePath: "/"
